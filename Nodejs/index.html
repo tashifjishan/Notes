@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="responsePara"></p>
+    <input type="text" id="queryInput">
+    <button id="fetch">Fetch</button>
+    <script>
+        const responsePara = document.getElementById("responsePara");
+        const queryInput = document.getElementById("queryInput");
+        const fetchBtn = document.getElementById("fetch");
+
+        fetchBtn.addEventListener("click", async () => {
+            const prompt = queryInput.value.trim();
+
+            if (!prompt) return;
+
+            responsePara.textContent = "";
+
+            const res = await fetch(
+                `http://localhost:8080/chat?prompt=${encodeURIComponent(prompt)}`
+            );
+
+            const reader = res.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { done, value } = await reader.read();
+
+                if (done) break;
+
+                responsePara.textContent += decoder.decode(value);
+            }
+        });
+    </script>
+</body>
+
+</html>
