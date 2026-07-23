@@ -323,7 +323,7 @@ The key is applying the **chain rule**.
 
 The cost is:
 
-[
+$$
 J=-\frac1m
 \sum
 \left[
@@ -331,13 +331,13 @@ y\log(p)
 +
 (1-y)\log(1-p)
 \right]
-]
+$$
 
 where
 
-[
+$$
 p=\sigma(z)
-]
+$$
 
 and
 
