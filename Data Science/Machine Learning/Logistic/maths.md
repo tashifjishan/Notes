@@ -8,85 +8,85 @@ We'll do **one complete iteration** by hand.
 
 Suppose we have this dataset:
 
-| Hours Studied (x) | Passed (y) |
-| ----------------- | ---------- |
-| 1                 | 0          |
-| 2                 | 0          |
-| 3                 | 1          |
+| Hours Studied ($x$) | Passed ($y$) |
+|---------------------|--------------|
+| 1 | 0 |
+| 2 | 0 |
+| 3 | 1 |
 
 We want to learn a model that predicts whether a student passes.
 
 ---
 
-# Step 1: Initialize the parameters
+# Step 1: Initialize the Parameters
 
-Let's start with
+Let's start with:
 
-```text
+```python
 w = 0
 b = 0
-Learning Rate = 0.1
+learning_rate = 0.1
 ```
 
 ---
 
-# Step 2: Compute z
+# Step 2: Compute $z$
 
-The linear part is
+The linear part of logistic regression is
 
 $$
-z=wx+b
-]
+z = wx + b
+$$
 
-For each student
+For each student:
 
-| x | Calculation | z |
-| - | ----------- | - |
-| 1 | 0×1+0       | 0 |
-| 2 | 0×2+0       | 0 |
-| 3 | 0×3+0       | 0 |
+| $x$ | Calculation | $z$ |
+|-----|-------------|-----|
+| 1 | $0 \times 1 + 0$ | 0 |
+| 2 | $0 \times 2 + 0$ | 0 |
+| 3 | $0 \times 3 + 0$ | 0 |
 
 ---
 
-# Step 3: Apply the Sigmoid
+# Step 3: Apply the Sigmoid Function
 
-The prediction is
-
-$$
-p=\frac1{1+e^{-z}}
-]
-
-For (z=0),
+The prediction is given by the sigmoid function:
 
 $$
-p=\frac1{1+e^0}
-=\frac12
-=0.5
-]
+p = \sigma(z) = \frac{1}{1 + e^{-z}}
+$$
 
-Every prediction becomes
+For $z = 0$,
 
-| x | Actual | Prediction |
-| - | ------ | ---------- |
-| 1 | 0      | 0.5        |
-| 2 | 0      | 0.5        |
-| 3 | 1      | 0.5        |
+$$
+p = \frac{1}{1 + e^0}
+= \frac{1}{2}
+= 0.5
+$$
+
+So every prediction is:
+
+| $x$ | Actual ($y$) | Prediction ($p$) |
+|-----|--------------|------------------|
+| 1 | 0 | 0.5 |
+| 2 | 0 | 0.5 |
+| 3 | 1 | 0.5 |
 
 ---
 
-# Step 4: Compute the Loss
+# Step 4: Compute the Cross-Entropy Loss
 
 The loss for one sample is
 
 $$
-L=-(y\log p+(1-y)\log(1-p))
-]
+L = -\left(y \log(p) + (1-y)\log(1-p)\right)
+$$
 
-Let's compute each one.
+Let's compute the loss for each sample.
 
 ---
 
-### Sample 1
+## Sample 1
 
 Actual = 0
 
@@ -94,196 +94,199 @@ Prediction = 0.5
 
 $$
 L_1
-===
-
--(0\log0.5+1\log0.5)
-]
+=
+-\left(0\log(0.5)+1\log(0.5)\right)
+$$
 
 $$
-=-\log0.5
-]
+= -\log(0.5)
+$$
 
 $$
-=0.6931
-]
+= 0.6931
+$$
 
 ---
 
-### Sample 2
+## Sample 2
 
 Exactly the same.
 
 $$
-L_2=0.6931
-]
+L_2 = 0.6931
+$$
 
 ---
 
-### Sample 3
+## Sample 3
 
-Actual =1
+Actual = 1
 
-Prediction =0.5
+Prediction = 0.5
 
 $$
 L_3
-===
-
--(1\log0.5)
-]
+=
+-\left(1\log(0.5)\right)
+$$
 
 $$
-=0.6931
-]
+= 0.6931
+$$
 
 ---
 
-Average Loss
+The average loss is
 
 $$
-\frac{0.6931+0.6931+0.6931}{3}
-==============================
-
+\frac{0.6931 + 0.6931 + 0.6931}{3}
+=
 0.6931
-]
+$$
 
 This is our starting error.
 
 ---
 
-# Step 5: Find the Derivatives
+# Step 5: Compute the Gradients
 
-This is where calculus enters.
-
-The cost function is complicated, but after differentiating it (using the chain rule and the derivative of the sigmoid), everything simplifies beautifully to:
+After differentiating the cost function (using the chain rule and the derivative of the sigmoid), the gradients simplify to
 
 $$
 \frac{\partial J}{\partial w}
-=============================
-
-\frac1m
-\sum
-(p-y)x
-]
+=
+\frac{1}{m}
+\sum_{i=1}^{m}
+(p_i-y_i)x_i
+$$
 
 and
 
 $$
 \frac{\partial J}{\partial b}
-=============================
-
-\frac1m
-\sum
-(p-y)
-]
-
-These are the gradients used by logistic regression.
+=
+\frac{1}{m}
+\sum_{i=1}^{m}
+(p_i-y_i)
+$$
 
 Let's compute them.
 
 ---
 
-## Gradient for w
+## Gradient for $w$
 
-| x | y | p   | p−y  | (p−y)x |
-| - | - | --- | ---- | ------ |
-| 1 | 0 | 0.5 | 0.5  | 0.5    |
-| 2 | 0 | 0.5 | 0.5  | 1      |
-| 3 | 1 | 0.5 | -0.5 | -1.5   |
+| $x$ | $y$ | $p$ | $p-y$ | $(p-y)x$ |
+|-----|-----|-----|--------|----------|
+| 1 | 0 | 0.5 | 0.5 | 0.5 |
+| 2 | 0 | 0.5 | 0.5 | 1.0 |
+| 3 | 1 | 0.5 | -0.5 | -1.5 |
 
-Sum
+The sum is
 
 $$
-0.5+1-1.5=0
-]
+0.5 + 1 - 1.5 = 0
+$$
 
-Therefore
+Therefore,
 
 $$
 \frac{\partial J}{\partial w}
-=============================
-
+=
 0
-]
+$$
 
 Interesting! The positive and negative contributions cancel out.
 
 ---
 
-## Gradient for b
+## Gradient for $b$
 
-| p−y  |
-| ---- |
-| 0.5  |
-| 0.5  |
+| $p-y$ |
+|--------|
+| 0.5 |
+| 0.5 |
 | -0.5 |
 
-Sum
+The sum is
 
 $$
 0.5
-]
+$$
 
-Average
+The average is
 
 $$
 \frac{0.5}{3}
-=============
-
+=
 0.1667
-]
+$$
 
-So
+Therefore,
 
 $$
-\frac{\partial J}{\partial b}=0.1667
-]
+\frac{\partial J}{\partial b}
+=
+0.1667
+$$
 
 ---
 
 # Step 6: Update the Parameters
 
-Gradient descent says
-
-$$
-w=w-\alpha\frac{\partial J}{\partial w}
-]
-
-$$
-b=b-\alpha\frac{\partial J}{\partial b}
-]
-
-where (\alpha=0.1).
-
-For (w):
+Gradient descent updates the parameters as follows:
 
 $$
 w
 =
-
-## 0
-
-# 0.1(0)
-
-0
-]
-
-For (b):
+w
+-
+\alpha
+\frac{\partial J}{\partial w}
+$$
 
 $$
 b
 =
+b
+-
+\alpha
+\frac{\partial J}{\partial b}
+$$
 
-## 0
+where the learning rate is
 
-# 0.1(0.1667)
+$$
+\alpha = 0.1
+$$
 
+### Update $w$
+
+$$
+w
+=
+0
+-
+0.1(0)
+=
+0
+$$
+
+### Update $b$
+
+$$
+b
+=
+0
+-
+0.1(0.1667)
+=
 -0.01667
-]
+$$
 
-New parameters:
+The new parameters are
 
-```text
+```python
 w = 0
 b = -0.01667
 ```
@@ -292,17 +295,17 @@ b = -0.01667
 
 # Step 7: Predict Again
 
-Now
+Now,
 
 $$
-z=wx+b
-]
+z = wx + b
+$$
 
-Since (w=0),
+Since $w = 0$,
 
 $$
-z=-0.01667
-]
+z = -0.01667
+$$
 
 for every sample.
 
@@ -310,93 +313,105 @@ The new prediction becomes
 
 $$
 \sigma(-0.01667)
-\approx0.4958
-]
+\approx
+0.4958
+$$
 
-So all predictions shift slightly from **0.5000** to **0.4958**, moving in the direction that reduces the loss for the two negative examples.
+So every prediction shifts slightly from **0.5000** to **0.4958**, moving in the direction that reduces the loss for the two negative examples.
 
 ---
 
-# Where did those derivative formulas come from?
+# Where Did Those Gradient Formulas Come From?
 
-The key is applying the **chain rule**.
-
-The cost is:
+The overall cost function is
 
 $$
-J=-\frac1m
-\sum
-\left$$
-y\log(p)
+J
+=
+-\frac{1}{m}
+\sum_{i=1}^{m}
+\left[
+y_i\log(p_i)
 +
-(1-y)\log(1-p)
+(1-y_i)\log(1-p_i)
 \right]
 $$
 
 where
 
 $$
-p=\sigma(z)
+p = \sigma(z)
 $$
 
 and
 
 $$
-z=wx+b
-]
+z = wx + b
+$$
 
-The chain rule is:
+To compute the gradient with respect to $w$, we use the **chain rule**:
 
 $$
 \frac{\partial J}{\partial w}
-=============================
-
+=
 \frac{\partial J}{\partial p}
 \cdot
 \frac{\partial p}{\partial z}
 \cdot
 \frac{\partial z}{\partial w}
-]
+$$
 
-The three pieces are:
+The three derivatives are:
 
-* (\frac{\partial J}{\partial p}): derivative of the log-loss,
-* (\frac{\partial p}{\partial z}=p(1-p)): derivative of the sigmoid,
-* (\frac{\partial z}{\partial w}=x).
+- $\frac{\partial J}{\partial p}$ → derivative of the cross-entropy loss
+- $\frac{\partial p}{\partial z} = p(1-p)$ → derivative of the sigmoid function
+- $\frac{\partial z}{\partial w} = x$
 
-After simplifying, the (p(1-p)) terms cancel neatly, leaving the elegant result:
+After simplification, the $p(1-p)$ terms cancel beautifully, giving the elegant result
 
 $$
-\boxed{\frac{\partial J}{\partial w}
-====================================
+\boxed{
+\frac{\partial J}{\partial w}
+=
+\frac{1}{m}
+\sum_{i=1}^{m}
+(p_i-y_i)x_i
+}
+$$
 
-\frac1m
-\sum
-(p-y)x}
-]
-
-and
+Similarly,
 
 $$
-\boxed{\frac{\partial J}{\partial b}
-====================================
+\boxed{
+\frac{\partial J}{\partial b}
+=
+\frac{1}{m}
+\sum_{i=1}^{m}
+(p_i-y_i)
+}
+$$
 
-\frac1m
-\sum
-(p-y)}
-]
+These are exactly the gradients used by libraries like **scikit-learn**, **TensorFlow**, and **PyTorch** when training logistic regression using gradient descent or its variants.
 
 ---
 
-## I recommend one more example
+# A Better Example for Teaching
 
-This first dataset happened to give (\frac{\partial J}{\partial w}=0), which is mathematically valid but not very illustrative. For teaching, a dataset like:
+This dataset happened to give
 
-|  x |  y |
-| -: | -: |
-|  1 |  0 |
-|  2 |  0 |
-|  4 |  1 |
-|  5 |  1 |
+$$
+\frac{\partial J}{\partial w}=0
+$$
 
-produces a **non-zero gradient for both (w) and (b)**, so you'll see both parameters change after the first iteration. It's a much better example for understanding how logistic regression learns.
+which is mathematically correct but not very illustrative.
+
+A better teaching dataset is:
+
+| $x$ | $y$ |
+|-----|-----|
+| 1 | 0 |
+| 2 | 0 |
+| 4 | 1 |
+| 5 | 1 |
+
+For this dataset, **both** gradients are non-zero, so students can clearly see **both** $w$ and $b$ changing after the first iteration, making it much easier to understand how logistic regression learns.
