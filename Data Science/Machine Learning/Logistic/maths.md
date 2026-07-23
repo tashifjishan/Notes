@@ -34,7 +34,7 @@ Learning Rate = 0.1
 
 The linear part is
 
-[
+$$
 z=wx+b
 ]
 
@@ -52,13 +52,13 @@ For each student
 
 The prediction is
 
-[
+$$
 p=\frac1{1+e^{-z}}
 ]
 
 For (z=0),
 
-[
+$$
 p=\frac1{1+e^0}
 =\frac12
 =0.5
@@ -78,7 +78,7 @@ Every prediction becomes
 
 The loss for one sample is
 
-[
+$$
 L=-(y\log p+(1-y)\log(1-p))
 ]
 
@@ -92,18 +92,18 @@ Actual = 0
 
 Prediction = 0.5
 
-[
+$$
 L_1
 ===
 
 -(0\log0.5+1\log0.5)
 ]
 
-[
+$$
 =-\log0.5
 ]
 
-[
+$$
 =0.6931
 ]
 
@@ -113,7 +113,7 @@ L_1
 
 Exactly the same.
 
-[
+$$
 L_2=0.6931
 ]
 
@@ -125,14 +125,14 @@ Actual =1
 
 Prediction =0.5
 
-[
+$$
 L_3
 ===
 
 -(1\log0.5)
 ]
 
-[
+$$
 =0.6931
 ]
 
@@ -140,7 +140,7 @@ L_3
 
 Average Loss
 
-[
+$$
 \frac{0.6931+0.6931+0.6931}{3}
 ==============================
 
@@ -157,7 +157,7 @@ This is where calculus enters.
 
 The cost function is complicated, but after differentiating it (using the chain rule and the derivative of the sigmoid), everything simplifies beautifully to:
 
-[
+$$
 \frac{\partial J}{\partial w}
 =============================
 
@@ -168,7 +168,7 @@ The cost function is complicated, but after differentiating it (using the chain 
 
 and
 
-[
+$$
 \frac{\partial J}{\partial b}
 =============================
 
@@ -193,13 +193,13 @@ Let's compute them.
 
 Sum
 
-[
+$$
 0.5+1-1.5=0
 ]
 
 Therefore
 
-[
+$$
 \frac{\partial J}{\partial w}
 =============================
 
@@ -220,13 +220,13 @@ Interesting! The positive and negative contributions cancel out.
 
 Sum
 
-[
+$$
 0.5
 ]
 
 Average
 
-[
+$$
 \frac{0.5}{3}
 =============
 
@@ -235,7 +235,7 @@ Average
 
 So
 
-[
+$$
 \frac{\partial J}{\partial b}=0.1667
 ]
 
@@ -245,11 +245,11 @@ So
 
 Gradient descent says
 
-[
+$$
 w=w-\alpha\frac{\partial J}{\partial w}
 ]
 
-[
+$$
 b=b-\alpha\frac{\partial J}{\partial b}
 ]
 
@@ -257,7 +257,7 @@ where (\alpha=0.1).
 
 For (w):
 
-[
+$$
 w
 =
 
@@ -270,7 +270,7 @@ w
 
 For (b):
 
-[
+$$
 b
 =
 
@@ -294,13 +294,13 @@ b = -0.01667
 
 Now
 
-[
+$$
 z=wx+b
 ]
 
 Since (w=0),
 
-[
+$$
 z=-0.01667
 ]
 
@@ -308,7 +308,7 @@ for every sample.
 
 The new prediction becomes
 
-[
+$$
 \sigma(-0.01667)
 \approx0.4958
 ]
@@ -326,7 +326,7 @@ The cost is:
 $$
 J=-\frac1m
 \sum
-\left[
+\left$$
 y\log(p)
 +
 (1-y)\log(1-p)
@@ -341,13 +341,13 @@ $$
 
 and
 
-[
+$$
 z=wx+b
 ]
 
 The chain rule is:
 
-[
+$$
 \frac{\partial J}{\partial w}
 =============================
 
@@ -366,7 +366,7 @@ The three pieces are:
 
 After simplifying, the (p(1-p)) terms cancel neatly, leaving the elegant result:
 
-[
+$$
 \boxed{\frac{\partial J}{\partial w}
 ====================================
 
@@ -377,7 +377,7 @@ After simplifying, the (p(1-p)) terms cancel neatly, leaving the elegant result:
 
 and
 
-[
+$$
 \boxed{\frac{\partial J}{\partial b}
 ====================================
 
