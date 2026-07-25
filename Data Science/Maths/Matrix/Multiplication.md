@@ -1,479 +1,293 @@
-# Detailed Notes on Matrix Multiplication
-
-## 1. Introduction to Matrices
-
-A **matrix** is a rectangular arrangement of numbers, symbols, or expressions in rows and columns.
-
+Detailed Notes on Matrix Multiplication
+1. Introduction to Matrices
+A matrix is a rectangular arrangement of numbers, symbols, or expressions in rows and columns.
 Example:
-
-[
-A=
+A=[2345]A =
 \begin{bmatrix}
-2 & 3\
+2 & 3\\
 4 & 5
 \end{bmatrix}
-]
-
+A=[24​35​]
 This matrix has:
 
-* **2 rows**
-* **2 columns**
-* Order (or dimension): **2 × 2**
+2 rows
+2 columns
+Order (or dimension): 2×22 \times 22×2
 
-A general matrix with (m) rows and (n) columns is called an (m \times n) matrix.
+A general matrix with mmm rows and nnn columns is called an m×nm \times nm×n matrix.
 
----
-
-# 2. What is Matrix Multiplication?
-
+2. What is Matrix Multiplication?
 Matrix multiplication is an operation where two matrices are combined to produce a third matrix.
-
 If:
+A×B=CA \times B = C
+A×B=C
+then each element of matrix CCC is found by multiplying a row of AAA with a column of BBB and adding the results.
+The rule is:
+(AB)ij=∑kaikbkj(AB)_{ij}=\sum_{k}a_{ik}b_{kj}
+(AB)ij​=k∑​aik​bkj​
+This means the element in row iii and column jjj of the product matrix is obtained by taking the dot product of row iii of AAA and column jjj of BBB.
 
-[
-A \times B = C
-]
-
-then each element of matrix (C) is found by multiplying a **row of A** with a **column of B** and adding the results.
-
-genui{"linear_algebra_optimization_learning_block":{"type_id":"MATRIX_MULTIPLICATION_ROW_COLUMN_RULE","locale_override":"en-GB"}}
-
----
-
-# 3. Condition for Matrix Multiplication
-
+3. Condition for Matrix Multiplication
 Two matrices can be multiplied only when:
-
-[
-\text{Number of columns in first matrix} = \text{Number of rows in second matrix}
-]
-
+Number of columns in first matrix=Number of rows in second matrix\text{Number of columns in first matrix}
+=
+\text{Number of rows in second matrix}
+Number of columns in first matrix=Number of rows in second matrix
 If:
-
-[
-A_{m\times n} \times B_{n\times p}
-]
-
-then the result will be:
-
-[
-C_{m\times p}
-]
-
-### Example:
-
-[
-A=
+Am×n×Bn×pA_{m \times n} \times B_{n \times p}
+Am×n​×Bn×p​
+then the result will have dimensions:
+Cm×pC_{m \times p}
+Cm×p​
+Example
+Matrix AAA:
+A=[123456]A=
 \begin{bmatrix}
-1&2&3\
+1&2&3\\
 4&5&6
 \end{bmatrix}
-]
-
-Order: (2 \times 3)
-
-[
-B=
+A=[14​25​36​]
+Order:
+2×32 \times 3
+2×3
+Matrix BBB:
+B=[789101112]B=
 \begin{bmatrix}
-7&8\
-9&10\
+7&8\\
+9&10\\
 11&12
 \end{bmatrix}
-]
+B=​7911​81012​​
+Order:
+3×23 \times 2
+3×2
+Since:
+(2×3)(3×2)(2 \times 3)(3 \times 2)
+(2×3)(3×2)
+has matching inner dimensions, multiplication is possible.
+The resulting matrix will have order:
+2×22 \times 2
+2×2
 
-Order: (3 \times 2)
-
-Since the inner numbers match:
-
-[
-(2\times3)(3\times2)
-]
-
-the multiplication is possible, and the answer will be:
-
-[
-2\times2
-]
-
----
-
-# 4. Steps for Matrix Multiplication
-
+4. Steps for Matrix Multiplication
 Consider:
-
-[
-A=
+A=[abcd]A=
 \begin{bmatrix}
-a&b\
+a&b\\
 c&d
 \end{bmatrix}
-]
-
-and
-
-[
-B=
+A=[ac​bd​]
+and:
+B=[efgh]B=
 \begin{bmatrix}
-e&f\
+e&f\\
 g&h
 \end{bmatrix}
-]
-
-The product (AB) is:
-
-[
-AB=
+B=[eg​fh​]
+The product ABABAB is:
+AB=[ae+bgaf+bhce+dgcf+dh]AB=
 \begin{bmatrix}
-ae+bg & af+bh\
+ae+bg & af+bh\\
 ce+dg & cf+dh
 \end{bmatrix}
-]
+AB=[ae+bgce+dg​af+bhcf+dh​]
+Explanation
+First element:
+(1,1)=ae+bg(1,1)=ae+bg
+(1,1)=ae+bg
+First row of AAA multiplied by first column of BBB.
+Second element:
+(1,2)=af+bh(1,2)=af+bh
+(1,2)=af+bh
+First row of AAA multiplied by second column of BBB.
+Third element:
+(2,1)=ce+dg(2,1)=ce+dg
+(2,1)=ce+dg
+Second row of AAA multiplied by first column of BBB.
+Fourth element:
+(2,2)=cf+dh(2,2)=cf+dh
+(2,2)=cf+dh
+Second row of AAA multiplied by second column of BBB.
 
-### Explanation:
-
-* First row × first column:
-
-[
-ae+bg
-]
-
-* First row × second column:
-
-[
-af+bh
-]
-
-* Second row × first column:
-
-[
-ce+dg
-]
-
-* Second row × second column:
-
-[
-cf+dh
-]
-
----
-
-# 5. Numerical Example
-
+5. Numerical Example
 Multiply:
-
-[
-A=
+A=[2345]A=
 \begin{bmatrix}
-2&3\
+2&3\\
 4&5
 \end{bmatrix}
-]
-
-[
-B=
+A=[24​35​]
+and:
+B=[1678]B=
 \begin{bmatrix}
-1&6\
+1&6\\
 7&8
 \end{bmatrix}
-]
-
-### First element:
-
-[
-(2\times1)+(3\times7)
-]
-
-[
+B=[17​68​]
+Step 1: First element
+(2×1)+(3×7)(2 \times 1)+(3 \times 7)
+(2×1)+(3×7)
+=2+21=23=2+21=23
 =2+21=23
-]
-
-### Second element:
-
-[
-(2\times6)+(3\times8)
-]
-
-[
+Step 2: Second element
+(2×6)+(3×8)(2 \times 6)+(3 \times 8)
+(2×6)+(3×8)
+=12+24=36=12+24=36
 =12+24=36
-]
-
-### Third element:
-
-[
-(4\times1)+(5\times7)
-]
-
-[
+Step 3: Third element
+(4×1)+(5×7)(4 \times 1)+(5 \times 7)
+(4×1)+(5×7)
+=4+35=39=4+35=39
 =4+35=39
-]
-
-### Fourth element:
-
-[
-(4\times6)+(5\times8)
-]
-
-[
+Step 4: Fourth element
+(4×6)+(5×8)(4 \times 6)+(5 \times 8)
+(4×6)+(5×8)
+=24+40=64=24+40=64
 =24+40=64
-]
-
 Therefore:
-
-[
-AB=
+AB=[23363964]AB=
 \begin{bmatrix}
-23&36\
+23&36\\
 39&64
 \end{bmatrix}
-]
+AB=[2339​3664​]
 
----
+6. Important Properties of Matrix Multiplication
+1. Non-Commutative Property
+Matrix multiplication generally does not follow the commutative law.
+AB≠BAAB \neq BA
+AB=BA
+The order of multiplication matters.
 
-# 6. Important Properties of Matrix Multiplication
-
-## 1. Not Commutative
-
-Matrix multiplication usually does **not** follow:
-
-[
-AB=BA
-]
-
-In general:
-
-[
-AB\neq BA
-]
-
-Example:
-
-[
-A\times B
-]
-
-may give a different answer from:
-
-[
-B\times A
-]
-
----
-
-## 2. Associative Property
-
+2. Associative Property
 Matrix multiplication is associative:
-
-[
+(AB)C=A(BC)(AB)C=A(BC)
 (AB)C=A(BC)
-]
+Changing the grouping does not change the result.
 
-The grouping can change, but the result remains the same.
-
----
-
-## 3. Distributive Property
-
+3. Distributive Property
 Matrix multiplication distributes over addition:
-
-[
+A(B+C)=AB+ACA(B+C)=AB+AC
 A(B+C)=AB+AC
-]
-
 and:
-
-[
+(A+B)C=AC+BC(A+B)C=AC+BC
 (A+B)C=AC+BC
-]
 
----
-
-## 4. Identity Matrix Property
-
-The identity matrix acts like the number 1.
-
-For a (2\times2) identity matrix:
-
-[
-I=
+4. Identity Matrix Property
+The identity matrix behaves like the number 1.
+For a 2×22 \times 22×2 identity matrix:
+I=[1001]I=
 \begin{bmatrix}
-1&0\
+1&0\\
 0&1
 \end{bmatrix}
-]
-
+I=[10​01​]
 Then:
-
-[
+AI=AAI=A
 AI=A
-]
-
 and:
-
-[
+IA=AIA=A
 IA=A
-]
 
----
-
-## 5. Zero Matrix Property
-
+5. Zero Matrix Property
 Any matrix multiplied by a zero matrix gives a zero matrix:
+A×0=0A \times 0=0
+A×0=0
 
-[
-A \times 0=0
-]
-
----
-
-# 7. Matrix Multiplication Using Dot Product
-
-Each entry in the product matrix is obtained using the dot product:
-
-[
-\text{Row of first matrix}\cdot\text{Column of second matrix}
-]
-
+7. Matrix Multiplication Using Dot Product
+Each element of the product matrix is calculated using a dot product.
 Example:
-
-[
-\begin{bmatrix}
+[123]⋅[456]\begin{bmatrix}
 1&2&3
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-4\
-5\
+4\\
+5\\
 6
 \end{bmatrix}
-]
-
-[
-=(1\times4)+(2\times5)+(3\times6)
-]
-
-[
+[1​2​3​]⋅​456​​
+Multiply corresponding entries:
+=(1×4)+(2×5)+(3×6)=(1 \times 4)+(2 \times 5)+(3 \times 6)
+=(1×4)+(2×5)+(3×6)
+=4+10+18=32=4+10+18=32
 =4+10+18=32
-]
 
----
-
-# 8. Types of Matrix Multiplication
-
-### 1. Square Matrix Multiplication
-
-Both matrices have the same number of rows and columns.
-
+8. Types of Matrix Multiplication
+1. Square Matrix Multiplication
+Both matrices have equal numbers of rows and columns.
 Example:
+2×2 multiplied by 2×22 \times 2 \text{ multiplied by } 2 \times 2
+2×2 multiplied by 2×2
 
-[
-2\times2 \text{ multiplied by } 2\times2
-]
-
----
-
-### 2. Rectangular Matrix Multiplication
-
+2. Rectangular Matrix Multiplication
 Matrices have different dimensions.
-
 Example:
-
-[
-2\times3 \text{ multiplied by } 3\times4
-]
-
+(2×3)(3×4)(2 \times 3)(3 \times 4)
+(2×3)(3×4)
 Result:
+2×42 \times 4
+2×4
 
-[
-2\times4
-]
-
----
-
-### 3. Scalar Multiplication
-
+3. Scalar Multiplication
 A matrix is multiplied by a single number.
-
 Example:
-
-[
-3
+3[2415]3
 \begin{bmatrix}
-2&4\
+2&4\\
 1&5
 \end{bmatrix}
-]
-
+3[21​45​]
 Multiply every element by 3:
-
-# [
-
+=[612315]=
 \begin{bmatrix}
-6&12\
+6&12\\
 3&15
 \end{bmatrix}
-]
+=[63​1215​]
 
----
+9. Applications of Matrix Multiplication
+Matrix multiplication is used in:
 
-# 9. Applications of Matrix Multiplication
+Computer graphics — rotation, scaling, and transformation of images
+Artificial intelligence and machine learning — neural network calculations
+Physics and engineering — modelling systems and transformations
+Economics — input-output models
+Cryptography — encoding and decoding information
+Robotics — position and movement calculations
+Statistics — data analysis
 
-Matrix multiplication is widely used in:
 
-* **Computer graphics** (rotation, scaling, and movement of images)
-* **Artificial intelligence and machine learning**
-* **Physics and engineering calculations**
-* **Economics and statistics**
-* **Cryptography**
-* **Robotics**
-* **Network analysis**
-
----
-
-# 10. Common Mistakes
-
-1. **Multiplying corresponding elements directly**
-
+10. Common Mistakes
+Mistake 1: Multiplying corresponding elements
 Incorrect:
-
-[
-\begin{bmatrix}1&2\end{bmatrix}
+[12]×[34]\begin{bmatrix}
+1&2
+\end{bmatrix}
 \times
-\begin{bmatrix}3&4\end{bmatrix}
-]
+\begin{bmatrix}
+3&4
+\end{bmatrix}
+[1​2​]×[3​4​]
+Matrix multiplication is not the same as multiplying matching positions.
 
-Matrix multiplication is not element-by-element multiplication.
-
----
-
-2. **Ignoring dimension rules**
-
+Mistake 2: Ignoring dimension rules
 Always check:
+(m×n)(n×p)(m \times n)(n \times p)
+(m×n)(n×p)
+The two middle dimensions must be equal.
 
-[
-(m\times n)(n\times p)
-]
-
-The middle dimensions must be equal.
-
----
-
-3. **Changing the order**
-
+Mistake 3: Assuming the order can be changed
 Remember:
+AB≠BAAB \neq BA
+AB=BA
+for most matrices.
 
-[
-AB \neq BA
-]
+11. Summary
 
-in most cases.
-
----
-
-# 11. Summary
-
-* Matrix multiplication combines two matrices using **row-by-column multiplication**.
-* The number of columns of the first matrix must equal the number of rows of the second.
-* The order of the resulting matrix is determined by the outside dimensions.
-* Matrix multiplication is generally **not commutative**.
-* It is associative and distributive.
-* It is an essential tool in mathematics, science, computing, and engineering.
+Matrix multiplication combines matrices using the row-by-column rule.
+The number of columns in the first matrix must equal the number of rows in the second matrix.
+The resulting matrix size is determined by the outer dimensions.
+Matrix multiplication is generally not commutative.
+It is associative and distributive.
+Matrix multiplication is a fundamental concept used in mathematics, computing, engineering, and science.
